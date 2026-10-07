@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { font-family: Arial; padding: 15px; background: #f4f4f4; }
-    h1 { color: #2c3e50; text-align: center; }
+    h1 { color: #2c3e50; text-align: center; font-size: 22px; }
     .section {
       background: white;
       padding: 15px;
@@ -13,7 +13,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .section h2 { color: #2980b9; margin-top: 0; }
+    .section h2 { color: #2980b9; margin-top: 0; font-size: 18px; }
     input, select, button {
       width: 100%;
       padding: 10px;
@@ -21,12 +21,14 @@
       box-sizing: border-box;
       border-radius: 5px;
       border: 1px solid #ccc;
+      font-size: 15px;
     }
     button {
       background: #2980b9;
       color: white;
       border: none;
       font-weight: bold;
+      cursor: pointer;
     }
     .student-card {
       background: #ecf0f1;
@@ -35,6 +37,59 @@
       border-radius: 5px;
       border-left: 4px solid #2980b9;
     }
+
+    /* ===== ACCORDION STYLES ===== */
+    .accordion {
+      background: #2980b9;
+      color: white;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin: 12px 0 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion.active { background: #1f6391; }
+    .accordion .arrow {
+      transition: transform 0.3s;
+      font-size: 14px;
+    }
+    .accordion.active .arrow { transform: rotate(180deg); }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: white;
+      border-radius: 0 0 8px 8px;
+    }
+    .panel-inner { padding: 12px 16px; }
+
+    .panel ul { padding-left: 20px; margin: 0; }
+    .panel li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .panel li:last-child { border-bottom: none; }
+    .panel li:hover { color: #2980b9; font-weight: bold; }
+
+    .sub-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: #f9f9f9;
+      border-left: 3px solid #2980b9;
+      margin: 4px 0 4px 10px;
+      border-radius: 4px;
+    }
+    .sub-panel-inner { padding: 8px 14px; font-size: 14px; color: #555; }
   </style>
 </head>
 <body>
@@ -63,34 +118,106 @@
     <div id="studentList">No students yet.</div>
   </div>
 
-  <!-- SUBJECTS -->
-  <div class="section">
-    <h2>📖 Subjects</h2>
-    <ul>
-      <li>Maths</li>
-      <li>Science</li>
-      <li>English</li>
-      <li>Social Studies</li>
-    </ul>
+  <!-- ===== SUBJECTS ACCORDION ===== -->
+  <button class="accordion" onclick="togglePanel(this)">
+    📖 Subjects <span class="arrow">▼</span>
+  </button>
+  <div class="panel">
+    <div class="panel-inner">
+      <ul>
+        <li onclick="toggleSub(this)">Maths
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics: Numbers, Addition, Subtraction, Multiplication, Division, Fractions, Geometry
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Science
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics: Living Things, Plants, Animals, Matter, Energy, Weather, The Human Body
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">English
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics: Reading, Writing, Grammar, Spelling, Vocabulary, Comprehension
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Social Studies
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics: My Family, My Community, My Country, Culture, Government, Maps
+          </div></div>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- TRACKING AREAS -->
-  <div class="section">
-    <h2>📊 Tracking Areas</h2>
-    <ul>
-      <li>Attendance</li>
-      <li>Academic Performance</li>
-      <li>Scores</li>
-      <li>Grades</li>
-      <li>Subject Performance</li>
-      <li>Topic Performance</li>
-      <li>Assessment History</li>
-      <li>Learning Profile</li>
-      <li>Strengths</li>
-      <li>Areas of Difficulty</li>
-      <li>Topics Mastered</li>
-      <li>Topics Requiring Attention</li>
-    </ul>
+  <!-- ===== TRACKING AREAS ACCORDION ===== -->
+  <button class="accordion" onclick="togglePanel(this)">
+    📊 Tracking Areas <span class="arrow">▼</span>
+  </button>
+  <div class="panel">
+    <div class="panel-inner">
+      <ul>
+        <li onclick="toggleSub(this)">Attendance
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Days present, absent, late, and attendance percentage per term.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Academic Performance
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Overall performance across all subjects and terms.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Scores
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Raw scores from tests, exams, and assignments.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Grades
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Letter or numeric grades derived from scores.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Subject Performance
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Breakdown of performance per subject (Maths, Science, English, Social Studies).
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Topic Performance
+          <div class="sub-panel"><div class="sub-panel-inner">
+            How well the student performs on specific topics within subjects.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Assessment History
+          <div class="sub-panel"><div class="sub-panel-inner">
+            A log of all past assessments with dates and results.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Learning Profile
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Summary of the student's learning style, pace, and preferences.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Strengths
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Subjects and topics where the student excels.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Areas of Difficulty
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Subjects and topics the student struggles with.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Topics Mastered
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics the student has fully understood and can apply.
+          </div></div>
+        </li>
+        <li onclick="toggleSub(this)">Topics Requiring Attention
+          <div class="sub-panel"><div class="sub-panel-inner">
+            Topics that need revision, extra practice, or teacher support.
+          </div></div>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <script>
@@ -126,7 +253,35 @@
         </div>`
       ).join('');
     }
+
+    /* ===== ACCORDION FUNCTIONS ===== */
+
+    // Open/close the main sections
+    function togglePanel(button) {
+      button.classList.toggle('active');
+      const panel = button.nextElementSibling;
+      if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+        panel.style.maxHeight = '0px';
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    }
+
+    // Open/close the sub-items inside a section
+    function toggleSub(li) {
+      // Prevent the parent accordion from closing when tapping a sub-item
+      event.stopPropagation();
+
+      const sub = li.querySelector('.sub-panel');
+      if (!sub) return;
+
+      if (sub.style.maxHeight && sub.style.maxHeight !== '0px') {
+        sub.style.maxHeight = '0px';
+      } else {
+        sub.style.maxHeight = sub.scrollHeight + 'px';
+      }
+    }
   </script>
 
 </body>
-  </html>
+    </html>
