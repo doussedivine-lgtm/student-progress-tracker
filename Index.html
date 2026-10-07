@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Progress Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; padding: 15px; background: #f4f4f4; }
+    h1 { color: #2c3e50; text-align: center; }
+    .section {
+      background: white;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .section h2 { color: #2980b9; margin-top: 0; }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+    .student-card {
+      background: #ecf0f1;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border-left: 4px solid #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 Student Progress Tracker</h1>
+
+  <!-- BASIC INFORMATION -->
+  <div class="section">
+    <h2>👤 Basic Information</h2>
+    <input id="name" placeholder="Student Name">
+    <input id="age" type="number" placeholder="Age">
+    <select id="class">
+      <option value="">Select Class</option>
+      <option>Basic 1</option><option>Basic 2</option>
+      <option>Basic 3</option><option>Basic 4</option>
+      <option>Basic 5</option><option>Basic 6</option>
+      <option>Basic 7</option><option>Basic 8</option>
+      <option>Basic 9</option>
+    </select>
+    <button onclick="addStudent()">➕ Add Student</button>
+  </div>
+
+  <!-- STUDENT LIST -->
+  <div class="section">
+    <h2>📋 Students</h2>
+    <div id="studentList">No students yet.</div>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div class="section">
+    <h2>📖 Subjects</h2>
+    <ul>
+      <li>Maths</li>
+      <li>Science</li>
+      <li>English</li>
+      <li>Social Studies</li>
+    </ul>
+  </div>
+
+  <!-- TRACKING AREAS -->
+  <div class="section">
+    <h2>📊 Tracking Areas</h2>
+    <ul>
+      <li>Attendance</li>
+      <li>Academic Performance</li>
+      <li>Scores</li>
+      <li>Grades</li>
+      <li>Subject Performance</li>
+      <li>Topic Performance</li>
+      <li>Assessment History</li>
+      <li>Learning Profile</li>
+      <li>Strengths</li>
+      <li>Areas of Difficulty</li>
+      <li>Topics Mastered</li>
+      <li>Topics Requiring Attention</li>
+    </ul>
+  </div>
+
+  <script>
+    let students = [];
+
+    function addStudent() {
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const cls = document.getElementById('class').value;
+
+      if (!name || !age || !cls) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      students.push({ name, age, cls });
+      document.getElementById('name').value = '';
+      document.getElementById('age').value = '';
+      document.getElementById('class').value = '';
+      displayStudents();
+    }
+
+    function displayStudents() {
+      const list = document.getElementById('studentList');
+      if (students.length === 0) {
+        list.innerHTML = 'No students yet.';
+        return;
+      }
+      list.innerHTML = students.map(s =>
+        `<div class="student-card">
+          <b>${s.name}</b><br>
+          Age: ${s.age} | Class: ${s.cls}
+        </div>`
+      ).join('');
+    }
+  </script>
+
+</body>
+  </html>
